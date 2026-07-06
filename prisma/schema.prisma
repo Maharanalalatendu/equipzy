@@ -54,3 +54,14 @@ model Admin {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
+
+model Image {
+
+  id        String   @id @default(cuid())
+
+  imageUrl  String
+
+  publicId  String
+
+  createdAt DateTime @default(now())
+}
