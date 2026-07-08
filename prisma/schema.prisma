@@ -41,6 +41,8 @@ model Owner {
   isVerified      Boolean  @default(false)
 
   createdAt       DateTime @default(now())
+
+  equipments      Equipment[]
 }
 
 
@@ -64,4 +66,25 @@ model Image {
   publicId  String
 
   createdAt DateTime @default(now())
+}
+
+
+model Equipment {
+  id               String   @id @default(uuid())
+
+  owner_id         Int
+  owner            Owner    @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+
+  machine_category String
+  guid_line        String
+  price            String
+  service_city     String
+  state            String
+  district         String
+  image_url        String
+
+  delete           Int      @default(0)
+  status           Int      @default(0)
+
+  createdAt        DateTime @default(now())
 }
