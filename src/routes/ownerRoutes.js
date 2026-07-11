@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const owner = require("../controllers/ownerController");
-const protectOwner = require("../middleware/ownerMiddleware");
+const protectOwner = require("../middleware/authMiddleware");
 
 
 router.post("/send-otp", owner.sendOTP);
