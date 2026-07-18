@@ -23,6 +23,8 @@ model User {
   otp            String?
   otpExpiry      DateTime?
   isVerified     Boolean  @default(false)
+
+  payments       Payment[]
 }
 
 model Owner {
@@ -87,4 +89,26 @@ model Equipment {
   status           Int      @default(0)
 
   createdAt        DateTime @default(now())
+}
+
+model Payment {
+  id                  String   @id @default(uuid())
+
+  user_id             String
+  user                User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  amount              Int
+  currency            String   @default("INR")
+
+  upi_id              String?
+
+  razorpay_order_id   String   @unique
+  razorpay_payment_id String?  @unique
+  razorpay_signature  String?
+
+  payment_method      String?
+  status              String   @default("created")
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 }

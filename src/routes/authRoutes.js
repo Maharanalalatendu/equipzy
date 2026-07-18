@@ -24,7 +24,7 @@ router.post("/profile", protect, (req, res) => {
 
         success: true,
 
-        user: req.user,
+        user: req.User,
     });
 });
 

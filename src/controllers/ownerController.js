@@ -479,10 +479,10 @@ exports.resetPassword = async (req, res) => {
 
 exports.profile = async(req,res)=>{
 
-const owner = await prisma.owner.findUnique({
+const Owner = await prisma.Owner.findUnique({
 
 where:{
-id:req.owner.id
+id:req.Owner.id
 },
 
 select:{
@@ -497,6 +497,6 @@ bank_details:true
 
 });
 
-res.json(owner);
+res.json(Owner);
 
 }

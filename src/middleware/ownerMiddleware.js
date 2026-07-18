@@ -16,7 +16,7 @@ const protectAdmin = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.User = await prisma.User.findUnique({
+        req.Owner = await prisma.Owner.findUnique({
             where: {
                 id: decoded.id,
             },
@@ -27,17 +27,17 @@ const protectAdmin = async (req, res, next) => {
             },
         });
 
-        if (!req.User) {
+        if (!req.Owner) {
             return res.status(401).json({
                 success: false,
                 message: "Unauthorized",
             });
         }
 
-         if (!req.User.isVerified) {
+         if (!req.Owner.isVerified) {
             return res.status(403).json({
                 success: false,
-                message: "User is not verified. Please verify your account first.",
+                message: "Owner is not verified. Please verify your account first.",
             });
         }
 

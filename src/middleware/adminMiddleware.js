@@ -16,28 +16,21 @@ const protectAdmin = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.User = await prisma.User.findUnique({
+        req.admin = await prisma.admin.findUnique({
             where: {
                 id: decoded.id,
             },
             select: {
                 id: true,
-                email: true,
-                isVerified: true,
+                user_name: true,
+                role: true,
             },
         });
 
-        if (!req.User) {
+        if (!req.admin) {
             return res.status(401).json({
                 success: false,
                 message: "Unauthorized",
-            });
-        }
-
-         if (!req.User.isVerified) {
-            return res.status(403).json({
-                success: false,
-                message: "User is not verified. Please verify your account first.",
             });
         }
 
